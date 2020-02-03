@@ -264,6 +264,11 @@ class MusicManager(GoogleMusicClient):
 		else:
 			external_art = None
 
+		if not external_art and len(song.pictures) > 0:
+			# We did not provide an external art,
+			# so let's use the one packed into the music itself.
+			external_art = song.pictures[0].data
+
 		result = {'filepath': Path(song.filepath)}
 
 		track_info = mm_calls.Metadata.get_track_info(song)
